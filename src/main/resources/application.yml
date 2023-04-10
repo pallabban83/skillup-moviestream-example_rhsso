@@ -1,0 +1,29 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: movie-stream-api
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+    enabled-by-default: false
+server:
+  port: 9090
+  shutdown: graceful
