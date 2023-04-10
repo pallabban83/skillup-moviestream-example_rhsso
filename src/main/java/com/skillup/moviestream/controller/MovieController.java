@@ -6,9 +6,9 @@ import com.skillup.moviestream.domain.MovieEvent;
 import com.skillup.moviestream.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -29,11 +29,13 @@ public class MovieController {
   }
 
   @GetMapping(value = "/movie/{id}")
+  @PreAuthorize("hasAuthority('Get Movie By Id')")
   Mono<Movie> getMovieById(@PathVariable String id) {
     return movieService.getMovieById(id);
   }
 
   @GetMapping(value = "/movies")
+  @PreAuthorize("hasAuthority('Get All Movies')")
   Flux<Movie> getAllMovies() {
     return movieService.getAllMovies();
   }
